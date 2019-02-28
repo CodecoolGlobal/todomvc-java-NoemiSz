@@ -1,7 +1,9 @@
 package com.codecool.todo.controller;
 
+import com.codecool.todo.model.Status;
 import com.codecool.todo.model.Todo;
 import com.codecool.todo.repository.TodoRepository;
+import com.codecool.todo.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,20 +17,26 @@ import java.util.Map;
 public class TodoController {
 
     @Autowired
-    private TodoRepository todoRepository;
+    private TodoService todoService;
 
 //List repository items
     @RequestMapping("/list")
     public List<Todo> todoList() {
-        return todoRepository.findAll();
+        return todoService.todoList();
     }
 
 // Add new
     @RequestMapping (value = "/addTodo", method = RequestMethod.POST)
     public String addTodo(@RequestParam (value = "todo-title") String title) {
-        todoRepository.saveAndFlush(Todo.builder()
-                .title(title)
-                .build());
+        todoService.addTodo(title);
         return title;
     }
+  
+// Delete by Id
+    @DeleteMapping(value ="todos/{id}")
+    public Long removeById(@PathVariable Long id) {
+       todoService.delete(id);
+        return id;
+    }
 }
+
