@@ -23,5 +23,12 @@ public class TodoController {
         return todoRepository.findAll();
     }
 
-
+// Add new
+    @RequestMapping (value = "/addTodo", method = RequestMethod.POST)
+    public String addTodo(@RequestParam (value = "todo-title") String title) {
+        todoRepository.saveAndFlush(Todo.builder()
+                .title(title)
+                .build());
+        return title;
+    }
 }
