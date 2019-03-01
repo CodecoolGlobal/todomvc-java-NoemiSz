@@ -46,10 +46,8 @@ public class TodoController {
     }
     //Toggle status
     @PutMapping(value = "todos/{id}/toggle_status")
-    public String toggleStatus(@PathVariable Long id, @RequestParam(value = "status") String status) {
+    public void toggleStatus(@PathVariable Long id, @RequestParam(value = "status") String status) {
         todoService.toggleStatus(id, status);
-        String response = id + ", " + status;
-        return response;
     }
 }
 
