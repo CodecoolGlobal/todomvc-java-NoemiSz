@@ -24,24 +24,32 @@ public class TodoController {
     public List<Todo> todoList() {
         return todoService.todoList();
     }
+
     //List by status
-    @PostMapping(value ="/list")
-    public List<Todo> completedTodoList(@RequestParam (value = "status") String complete) {
+    @PostMapping(value = "/list")
+    public List<Todo> completedTodoList(@RequestParam(value = "status") String complete) {
         return todoService.findAllByComplete(complete);
     }
 
     // Add new
-    @RequestMapping (value = "/addTodo", method = RequestMethod.POST)
-    public String addTodo(@RequestParam (value = "todo-title") String title) {
+    @RequestMapping(value = "/addTodo", method = RequestMethod.POST)
+    public String addTodo(@RequestParam(value = "todo-title") String title) {
         todoService.addTodo(title);
         return title;
     }
+
     // Delete by id
-    @DeleteMapping(value ="todos/{id}")
+    @DeleteMapping(value = "todos/{id}")
     public Long removeById(@PathVariable Long id) {
         todoService.delete(id);
         return id;
     }
-
+    //Toggle status
+    @PutMapping(value = "todos/{id}/toggle_status")
+    public String toggleStatus(@PathVariable Long id, @RequestParam(value = "status") String status) {
+        todoService.toggleStatus(id, status);
+        String response = id + ", " + status;
+        return response;
     }
+}
 

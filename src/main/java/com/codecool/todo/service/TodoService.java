@@ -41,6 +41,19 @@ public class TodoService {
         return results;
     }
 
+    public void toggleStatus(Long id, String status) {
+        Todo todoToToggle = findById(id);
+        if (status.equals("true")) {
+            if (todoToToggle.getStatus().equals(Status.ACTIVE)) {
+                todoToToggle.setStatus(Status.COMPLETE);
+                todoRepository.saveAndFlush(todoToToggle);
+            } else {
+                todoToToggle.setStatus(Status.ACTIVE);
+                todoRepository.saveAndFlush(todoToToggle);
+            }
+        }
+    }
+
     public void delete(Long id){
         Todo todoToDelete = todoRepository.getOne(id);
         todoRepository.delete(todoToDelete);
