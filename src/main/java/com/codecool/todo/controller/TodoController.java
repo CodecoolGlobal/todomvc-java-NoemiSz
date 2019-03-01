@@ -19,24 +19,29 @@ public class TodoController {
     @Autowired
     private TodoService todoService;
 
-//List repository items
+    //List repository items
     @RequestMapping("/list")
     public List<Todo> todoList() {
         return todoService.todoList();
     }
+    //List by status
+    @PostMapping(value ="/list")
+    public List<Todo> completedTodoList(@RequestParam (value = "status") String complete) {
+        return todoService.findAllByComplete(complete);
+    }
 
-// Add new
+    // Add new
     @RequestMapping (value = "/addTodo", method = RequestMethod.POST)
     public String addTodo(@RequestParam (value = "todo-title") String title) {
         todoService.addTodo(title);
         return title;
     }
-  
-// Delete by Id
+    // Delete by id
     @DeleteMapping(value ="todos/{id}")
     public Long removeById(@PathVariable Long id) {
-       todoService.delete(id);
+        todoService.delete(id);
         return id;
     }
-}
+
+    }
 

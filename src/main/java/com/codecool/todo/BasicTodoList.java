@@ -1,5 +1,6 @@
 package com.codecool.todo;//import static spark.Spark.*;
 
+import com.codecool.todo.model.Status;
 import com.codecool.todo.repository.TodoRepository;
 import com.codecool.todo.model.Todo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,24 +21,26 @@ public class BasicTodoList{
         SpringApplication.run(BasicTodoList.class, args);
     }
 
-//    @Bean
-//    public CommandLineRunner init(){
-//        return args -> {
-//            Todo firstTodo = Todo.builder()
-//                    .title("first TODO item")
-//                    .build();
-//            todoRepository.save(firstTodo);
-//            Todo secondTodo = Todo.builder()
-//                    .title("second TODO item")
-//                    .build();
-//            todoRepository.save(secondTodo);
-//            Todo thirdTodo = Todo.builder()
-//                    .title("third TODO item")
-//                    .build();
-//            todoRepository.save(thirdTodo);
-//        };
-//    }
+    @Bean
+    public CommandLineRunner init(){
+        return args -> {
+            Todo firstTodo = Todo.builder()
+                    .title("first TODO item")
+                    .build();
+            todoRepository.save(firstTodo);
+            Todo secondTodo = Todo.builder()
+                    .title("second TODO item")
+                    .build();
+            todoRepository.save(secondTodo);
+            Todo thirdTodo = Todo.builder()
+                    .title("third TODO item")
+                    .status(Status.COMPLETE)
+                    .build();
+            todoRepository.save(thirdTodo);
+        };
+    }
 }
+
 
 
 //public class com.codecool.todo.BasicTodoList {
@@ -107,12 +110,6 @@ public class BasicTodoList{
 //            TodoDao.toggleStatus(req.params("id"), completed);
 //            return SUCCESS;
 //        });
-//    }
-//
-//    private static void addSampleData() {
-//        TodoDao.add(Todo.create("first TODO item"));
-//        TodoDao.add(Todo.create("second TODO item"));
-//        TodoDao.add(Todo.create("third TODO item"));
 //    }
 //
 //}
