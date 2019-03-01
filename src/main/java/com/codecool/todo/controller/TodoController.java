@@ -49,5 +49,11 @@ public class TodoController {
     public void toggleStatus(@PathVariable Long id, @RequestParam(value = "status") String status) {
         todoService.toggleStatus(id, status);
     }
+    //Update title by id
+    @PutMapping(value = "todos/{id}")
+    public void updateTitle(@PathVariable Long id, @RequestParam(value = "todo-title")String title){
+        todoService.update(id, title);
+
+    }
 }
 

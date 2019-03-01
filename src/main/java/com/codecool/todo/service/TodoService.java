@@ -58,4 +58,9 @@ public class TodoService {
         Todo todoToDelete = todoRepository.getOne(id);
         todoRepository.delete(todoToDelete);
     }
+    public void update(Long id, String title){
+        Todo todoToUpdate = todoRepository.getOne(id);
+        todoToUpdate.setTitle(title);
+        todoRepository.saveAndFlush(todoToUpdate);
+    }
 }
