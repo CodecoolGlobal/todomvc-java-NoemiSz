@@ -53,7 +53,6 @@ public class TodoController {
     @PutMapping(value = "todos/{id}")
     public void updateTitle(@PathVariable Long id, @RequestParam(value = "todo-title")String title){
         todoService.update(id, title);
-
     }
 }
 
