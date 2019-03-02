@@ -5,6 +5,7 @@ import com.auth0.spring.security.api.JwtWebSecurityConfigurer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -17,6 +18,7 @@ import java.util.Arrays;
 
 @EnableWebSecurity
 @Configuration
+@PropertySource(value = "auth0.properties")
 public class AppConfig extends WebSecurityConfigurerAdapter {
     @Value(value = "${auth0.apiAudience}")
     private String apiAudience;
