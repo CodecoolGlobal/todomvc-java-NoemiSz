@@ -9,13 +9,12 @@ window.addEventListener('load', function() {
 
     var webAuth = new auth0.WebAuth({
 
-        domain: AUTH0_DOMAIN,
-        clientID: AUTH0_CLIENT_ID,
-        redirectUri: AUTH0_CALLBACK_URL,
+        domain: 'dev-a6w6zup1.eu.auth0.com',
+        clientID: "MfzevZvM8vAy2p14pUUKE6WEfVBqUnzo",
+        audience: "https://todo/api",
         responseType: 'token id_token',
         scope: 'openid',
-        redirectUri: window.location.href,
-        leeway: 60
+        redirectUri: window.location.href
     });
 
     var loginBtn = document.getElementById('btn-login');
@@ -67,21 +66,23 @@ window.addEventListener('load', function() {
         );
         accessToken = authResult.accessToken;
         idToken = authResult.idToken;
+
+        localStorage.setItem("accessToken", accessToken);
     }
 
-    function renewTokens() {
-        webAuth.checkSession({}, (err, authResult) => {
-            if (authResult && authResult.accessToken && authResult.idToken) {
-            localLogin(authResult);
-        } else if (err) {
-            alert(
-                'Could not get a new token '  + err.error + ':' + err.error_description + '.'
-            );
-            logout();
-        }
-        displayButtons();
-    });
-    }
+    // function renewTokens() {
+    //     webAuth.checkSession({}, (err, authResult) => {
+    //         if (authResult && authResult.accessToken && authResult.idToken) {
+    //         localLogin(authResult);
+    //     } else if (err) {
+    //         alert(
+    //             'Could not get a new token '  + err.error + ':' + err.error_description + '.'
+    //         );
+    //         logout();
+    //     }
+    //     displayButtons();
+    // });
+    // }
 
     function logout() {
         // Remove isLoggedIn flag from localStorage
@@ -113,7 +114,8 @@ window.addEventListener('load', function() {
         }
     }
     if (localStorage.getItem('isLoggedIn') === 'true') {
-        renewTokens();
+        //renewTokens();
+        console.log("lol");
     } else {
         handleAuthentication();
     }
